@@ -1,6 +1,6 @@
 telethon==1.33.1
 aiofiles
-async-lru
+async-lru==2.0.5
 apscheduler
 aiohttp==3.9.3
 asyncio==3.4.3
@@ -25,9 +25,9 @@ python-dotenv
 pyyaml==6.0.1
 tgcrypto
 telegraph==2.2.0
-yt-dlp==2025.3.31
+yt-dlp==2025.4.30
 lexica-api==1.4.7
-httpx==0.25.2
+httpx[http2]==0.28.1
 lyricsgenius
 spotipy
 SafoneAPI
