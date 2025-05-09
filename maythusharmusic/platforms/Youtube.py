@@ -85,25 +85,6 @@ class YouTubeAPI:
         self.listbase = "https://youtube.com/playlist?list="
         self.reg = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
-return {
-            "format": "bestaudio/best" if audio else          
-            "bestvideo[height<=720]+bestaudio/best",
-            "outtmpl": "downloads/%(id)s.%(ext)s",
-            "geo_bypass": True,
-            "geo_bypass_country": "US",
-            "force_ipv4": True,
-            "nocheckcertificate": True,
-            "quiet": True,
-            "no_warnings": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "320"
-                }
-            ] if audio else [],
-            "postprocessor_args": ["-metadata", "title=%(title)s"],
-        }
     async def exists(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
             link = self.base + link
@@ -230,8 +211,6 @@ return {
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "geo_bypass": True,
-                "geo_bypass_country": "US",
-                "force_ipv4": True,
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
@@ -255,9 +234,6 @@ return {
             ydl_opts = {
                 "format": "bestvideo[height<=720]+bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
-                "geo_bypass": True,
-                "geo_bypass_country": "US",
-                "force_ipv4": True,
                 "cookiefile": cookie_txt_file(),
                 "merge_output_format": "mp4",
                 "postprocessor_args": {"prefer_ffmpeg": True},
