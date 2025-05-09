@@ -4,7 +4,7 @@ import random
 import re
 
 from async_lru import alru_cache
-from py_yt import VideosSearch
+from youtubesearchpython.__future__ import VideosSearch
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 from yt_dlp import YoutubeDL
