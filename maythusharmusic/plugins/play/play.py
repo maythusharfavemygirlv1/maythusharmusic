@@ -2,7 +2,7 @@ import random
 import string
 
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, InputMediaSticker, Message
+from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
@@ -24,12 +24,6 @@ from maythusharmusic.utils.logger import play_logs
 from maythusharmusic.utils.stream.stream import stream
 from config import BANNED_USERS, lyrical
 
-# Search Stickers (Replace these IDs with your actual sticker IDs)
-SEARCH_STICKERS = [
-    "CAACAgUAAxkBAAIBkmgc1QyyhxYUA3FHeJXbAusu_LlKAAKZGQACDpXoVIEmW7x1SB0JNgQ",
-    "CAACAgUAAxkBAAIBkmgc1QyyhxYUA3FHeJXbAusu_LlKAAKZGQACDpXoVIEmW7x1SB0JNgQ",
-    "CAACAgUAAxkBAAIBkmgc1QyyhxYUA3FHeJXbAusu_LlKAAKZGQACDpXoVIEmW7x1SB0JNgQ"
-]
 
 @app.on_message(
     filters.command(
@@ -403,7 +397,6 @@ async def play_commnd(
             return await play_logs(message, streamtype=f"Playlist : {plist_type}")
         else:
             if slider:
-                selected_sticker = random.choice(SEARCH_STICKERS)  # Sticker ရွေးချယ်ခြင်း
                 buttons = slider_markup(
                     _,
                     track_id,
@@ -414,8 +407,12 @@ async def play_commnd(
                     "f" if fplay else "d",
                 )
                 await mystic.delete()
-                await message.reply_sticker(  # Sticker ပို့ခြင်း
-                    sticker=selected_sticker,
+                await message.reply_photo(
+                    photo=details["thumb"],
+                    caption=_["play_10"].format(
+                        details["title"].title(),
+                        details["duration_min"],
+                    ),
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
                 return await play_logs(message, streamtype=f"Searched on Youtube")
