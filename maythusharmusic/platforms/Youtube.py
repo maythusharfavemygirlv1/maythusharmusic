@@ -85,7 +85,7 @@ class YouTubeAPI:
         self.listbase = "https://youtube.com/playlist?list="
         self.reg = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
-        return {
+return {
             "format": "bestaudio/best" if audio else          
             "bestvideo[height<=720]+bestaudio/best",
             "outtmpl": "downloads/%(id)s.%(ext)s",
