@@ -1,9 +1,8 @@
 import time
 import asyncio
 from pyrogram import filters
-from pyrogram.enums import ChatType, ChatMemberStatus
-from pyrogram.errors import UserNotParticipant
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+from pyrogram.enums import ChatType
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
@@ -24,41 +23,11 @@ from maythusharmusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
-
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
     await add_served_user(message.from_user.id)
     await message.react("❤")
-    
-    user_id = message.from_user.id
-    try:
-        # Group စစ်ဆေးခြင်း
-        group = await app.get_chat_member(config.SUPPORT_CHAT_LINK, user_id)
-        if group.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
-            raise UserNotParticipant
-        
-        # Channel စစ်ဆေးခြင်း
-        channel = await app.get_chat_member(config.SUPPORT_CHANNEL_LINK, user_id)
-        if channel.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
-            raise UserNotParticipant
-
-    except UserNotParticipant:
-        return await message.reply_photo(
-            photo=config.JOIN_IMG_URL, # ပုံလိပ်စာကို config ကနေယူထား
-            caption="ʏᴏᴜ ɴᴇᴇᴅ ᴛᴏ ᴊᴏɪɴ ᴛʜᴇ [๏ sᴜᴘᴘᴏʀᴛ ๏](https://t.me/sasukemusicsupportchat) ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜꜱᴇ ᴛʜᴇ ʙᴏᴛ !\nᴀғᴛᴇʀ ᴊᴏɪɴ ᴛʜᴇ [๏ ᴄʜᴀɴɴᴇʟ ๏](https://t.me/sasukevipmusicbotsupport) ᴄᴏᴍᴇ ʙᴀᴄᴋ ᴛᴏ ᴛʜᴇ ʙᴏᴛ ᴀɴᴅ ᴛʏᴘᴇ /start ᴀɢᴀɪɴ !",
-            reply_markup=InlineKeyboardMarkup([
-                [
-                    InlineKeyboardButton(" ᴊᴏɪɴ ", url=config.SUPPORT_CHAT),
-                    InlineKeyboardButton(" ᴊᴏɪɴ ", url=config.SUPPORT_CHANNEL)
-                ]
-            ]),
-        )
-    except Exception as e:
-        print(f"Error checking membership: {e}")
-        return await message.reply_text("⚠️ စစ်ဆေးမှုတွင် အမှားတစ်ခုဖြစ်နေပါသည်။ အက်မင်းကို အကြောင်းကြားပါ။")
-
-    # Original start command handling
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
@@ -78,7 +47,7 @@ async def start_pm(client, message: Message, _):
                 )
             return
         if name[0:3] == "inf":
-            m = await message.reply_text("🔎")
+            m = await message.reply_sticker("CAACAgUAAxkBAAEObxloHODEbJMRLG0DgnPYJ7bOUXc5QwACmRkAAg6V6FSBJlu8dUgdCTYE")
             query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
             results = VideosSearch(query, limit=1)
@@ -115,6 +84,7 @@ async def start_pm(client, message: Message, _):
                     text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
                 )
     else:
+
         try:
             out = private_panel(_)
             lol = await message.reply_text("ωєℓᴄᴏᴍᴇ вαву ᥫ᭡ {}.. 💛".format(message.from_user.mention))
@@ -160,12 +130,16 @@ async def start_pm(client, message: Message, _):
             await lols.edit_text("**⚡ѕтαятιиg....**")
             m = await message.reply_sticker("CAACAgUAAxkBAAMJZ7LS9RsSUHIOzOqsRgUFk9hHSv4AArwWAAKfFpBVhnvDvVebyvM2BA")
             if message.chat.photo:
+
                 userss_photo = await app.download_media(
                     message.chat.photo.big_file_id,
                 )
             else:
                 userss_photo = "assets/nodp.png"
-            chat_photo = userss_photo if userss_photo else config.START_IMG_URL
+            if userss_photo:
+                chat_photo = userss_photo
+            chat_photo = userss_photo if userss_photo else START_IMG_URL
+
         except AttributeError:
             chat_photo = "assets/nodp.png"
         await lols.delete()
@@ -182,7 +156,6 @@ async def start_pm(client, message: Message, _):
                 config.LOGGER_ID,
                 f"{message.from_user.mention} ʜᴀs sᴛᴀʀᴛᴇᴅ ʙᴏᴛ. \n\n**ᴜsᴇʀ ɪᴅ :** {sender_id}\n**ᴜsᴇʀ ɴᴀᴍᴇ:** {sender_name}",
             )
-
 
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
