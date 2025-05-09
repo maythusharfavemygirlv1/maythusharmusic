@@ -1,6 +1,6 @@
 services:
   - type: worker
-    name: maythusharmusicvv1
+    name: maythusharmusicvv4
     env: python
     plan: pro
     region: virginia
@@ -8,16 +8,16 @@ services:
     startCommand: bash start
     envVars:
       - key: API_ID
-        value: "20078321"
+        value: "28637652"
       - key: API_HASH
-        value: "c8ed904e4aac83cea1f27b73984debad"
+        value: "dd60070d55621ecf4bd705e751723001"
       - key: BOT_TOKEN
-        value: "7418613978:AAEKb1SAjIC8qChfifv31vK2iWGkPNe7mnQ"
+        value: "8094528791:AAFU8ESFWfgl5DyIc5l2YmbmZS1twiWpc1w"
       - key: MONGO_DB_URI
         value: "mongodb+srv://pyaesone:pyaesone@pyaesone.ii8wsxo.mongodb.net/?retryWrites=true&w=majority"
       - key: OWNER_ID
         value: "1318826936"
       - key: LOGGER_ID
-        value: "-1002335122520"
+        value: "-1002326433754"
       - key: STRING_SESSION
-        value: "BQEyXvEATRCFSHbap7OEBUPBKyGDCjhk0SQC_qDVSek5VkkOb0lgp9tV5QJDn60g-bOODr8udcIDu2fXWvSF1GgDhD4WtO7Qpuctep65qcOtrHeKbLdBjIKYladqlU4oGinbCzRVEQDAobyGuYdygzTa962c0OrSsd2MePFFSOHCf6UnyPSW7XAnNX9WmMEOK220N0HoNrlmsxGhubkDI3HzjdnBydP_gEC7Aywt8OJYP23WMQhYCIRCsvFMlqTRgQTOjSDzD2ElIf65H30XZiSwRW0ELkzBCbnHPh-oNT6K515v21Qf-hafrGZmMNvM1ZVWSQC5veuie6y3FH7w773L92VBsgAAAAFeh0k2AA"
+        value: "BAG0-dQAhzDUkVv_aodogO8hCD1nleV6LtRK0AfMAOGwQOO-oC1semRNOJSFZUt0lyKPY4qgGMAKlBIEdqXk2Gojv33JY27zL7xVR-8qtfYN__Y_k9jORHVGnRIAwGHYyY4vs0D6Ld1eFCVp058TfEaAydgxWxK8T1mcmu5ZvZmUoic1ZhYvxGtLOTu7svXlrza9BF97YGW8q0YMkzpTo7l6PLaNPWCvrkelLjmZ8s3HmwQQ8AC5Jwdq3dR1c4pLbUBH7xQH_cGVXwXZbXVsek_cG0-CaBIFym7die9WmlHTTM9BTMinD4UaCGDZvvTh_do2oG_ATv4vJg64-rLp_rYKrm97mgAAAAHPV8XtAA"
