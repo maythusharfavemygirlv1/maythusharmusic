@@ -885,11 +885,11 @@ async def save_video_bitrate(chat_id: int, bitrate: str):
 
 
 async def get_aud_bit_name(chat_id: int) -> str:
-    return audio.get(str(chat_id), "ULTRA")
+    return audio.get(str(chat_id), "STUDIO")
 
 
 async def get_vid_bit_name(chat_id: int) -> str:
-    return video.get(str(chat_id), "FHD_1080p")
+    return video.get(str(chat_id), "HD_720p")
 
 
 async def get_audio_bitrate(chat_id: int) -> str:
