@@ -1,3 +1,4 @@
+
 import asyncio
 import os
 from datetime import datetime, timedelta
@@ -20,9 +21,9 @@ from pytgcalls.types import (
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
-from CaiLinXMusic import LOGGER, YouTube, app
-from CaiLinXMusic.misc import db
-from CaiLinXMusic.utils.database import (
+from maythusharmusic import LOGGER, YouTube, app
+from maythusharmusic.misc import db
+from maythusharmusic.utils.database import (
     add_active_chat,
     add_active_video_chat,
     get_lang,
@@ -36,11 +37,11 @@ from CaiLinXMusic.utils.database import (
     remove_active_video_chat,
     set_loop,
 )
-from CaiLinXMusic.utils.exceptions import AssistantErr
-from CaiLinXMusic.utils.formatters import check_duration, seconds_to_min, speed_converter
-from CaiLinXMusic.utils.inline.play import stream_markup, stream_markup2
-from CaiLinXMusic.utils.stream.autoclear import auto_clean
-from CaiLinXMusic.utils.thumbnails import get_thumb
+from maythusharmusic.utils.exceptions import AssistantErr
+from maythusharmusic.utils.formatters import check_duration, seconds_to_min, speed_converter
+from maythusharmusic.utils.inline.play import stream_markup
+from maythusharmusic.utils.stream.autoclear import auto_clean
+from maythusharmusic.utils.thumbnails import get_thumb
 from strings import get_string
 
 autoend = {}
@@ -57,7 +58,7 @@ async def _clear_(chat_id):
 class Call(PyTgCalls):
     def __init__(self):
         self.userbot1 = Client(
-            name="CaiLinXMusic1",
+            name="maythusharmusic1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
@@ -67,7 +68,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot2 = Client(
-            name="CaiLinXMusic2",
+            name="maythusharmusic2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
@@ -77,7 +78,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot3 = Client(
-            name="CaiLinXMusic3",
+            name="maythusharmusic3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
@@ -87,7 +88,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot4 = Client(
-            name="CaiLinXMusic4",
+            name="maythusharmusic4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
@@ -97,7 +98,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot5 = Client(
-            name="CaiLinXMusic5",
+            name="maythusharmusic5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -231,7 +232,7 @@ class Call(PyTgCalls):
             MediaStream(
                 out,
                 audio_parameters=AudioQuality.STUDIO,
-                video_parameters=VideoQuality.SD_480p,
+                video_parameters=VideoQuality.FHD_1080p,
                 ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
@@ -283,7 +284,7 @@ class Call(PyTgCalls):
             stream = MediaStream(
                 link,
                 audio_parameters=AudioQuality.STUDIO,
-                video_parameters=VideoQuality.SD_480p,
+                video_parameters=VideoQuality.FHD_1080p,
             )
         else:
             stream = MediaStream(
@@ -302,7 +303,7 @@ class Call(PyTgCalls):
             MediaStream(
                 file_path,
                 audio_parameters=AudioQuality.STUDIO,
-                video_parameters=VideoQuality.SD_480p,
+                video_parameters=VideoQuality.FHD_1080p,
                 ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
@@ -339,14 +340,14 @@ class Call(PyTgCalls):
             stream = MediaStream(
                 link,
                 audio_parameters=AudioQuality.STUDIO,
-                video_parameters=VideoQuality.SD_480p,
+                video_parameters=VideoQuality.FHD_1080p,
             )
         else:
             stream = (
                 MediaStream(
                     link,
                     audio_parameters=AudioQuality.STUDIO,
-                    video_parameters=VideoQuality.SD_480p,
+                    video_parameters=VideoQuality.FHD_1080p,
                 )
                 if video
                 else MediaStream(
@@ -426,7 +427,7 @@ class Call(PyTgCalls):
                     stream = MediaStream(
                         link,
                         audio_parameters=AudioQuality.STUDIO,
-                        video_parameters=VideoQuality.SD_480p,
+                        video_parameters=VideoQuality.FHD_1080p,
                     )
                 else:
                     stream = MediaStream(
@@ -442,7 +443,7 @@ class Call(PyTgCalls):
                         text=_["call_6"],
                     )
                 img = await get_thumb(videoid)
-                button = stream_markup2(_, chat_id)
+                button = stream_markup(_, chat_id)
                 run = await app.send_photo(
                     chat_id=original_chat_id,
                     photo=img,
@@ -473,7 +474,7 @@ class Call(PyTgCalls):
                     stream = MediaStream(
                         file_path,
                         audio_parameters=AudioQuality.STUDIO,
-                        video_parameters=VideoQuality.SD_480p,
+                        video_parameters=VideoQuality.FHD_1080p,
                     )
                 else:
                     stream = MediaStream(
@@ -489,7 +490,7 @@ class Call(PyTgCalls):
                         text=_["call_6"],
                     )
                 img = await get_thumb(videoid)
-                button = stream_markup(_, videoid, chat_id)
+                button = stream_markup(_, chat_id)
                 await mystic.delete()
                 run = await app.send_photo(
                     chat_id=original_chat_id,
@@ -509,7 +510,7 @@ class Call(PyTgCalls):
                     MediaStream(
                         videoid,
                         audio_parameters=AudioQuality.STUDIO,
-                        video_parameters=VideoQuality.SD_480p,
+                        video_parameters=VideoQuality.FHD_1080p,
                     )
                     if str(streamtype) == "video"
                     else MediaStream(
@@ -525,7 +526,7 @@ class Call(PyTgCalls):
                         original_chat_id,
                         text=_["call_6"],
                     )
-                button = stream_markup2(_, chat_id)
+                button = stream_markup(_, chat_id)
                 run = await app.send_photo(
                     chat_id=original_chat_id,
                     photo=config.STREAM_IMG_URL,
@@ -539,7 +540,7 @@ class Call(PyTgCalls):
                     stream = MediaStream(
                         queued,
                         audio_parameters=AudioQuality.STUDIO,
-                        video_parameters=VideoQuality.SD_480p,
+                        video_parameters=VideoQuality.FHD_1080p,
                     )
                 else:
                     stream = MediaStream(
@@ -555,7 +556,7 @@ class Call(PyTgCalls):
                         text=_["call_6"],
                     )
                 if videoid == "telegram":
-                    button = stream_markup2(_, chat_id)
+                    button = stream_markup(_, chat_id)
                     run = await app.send_photo(
                         chat_id=original_chat_id,
                         photo=(
@@ -571,7 +572,7 @@ class Call(PyTgCalls):
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "tg"
                 elif videoid == "soundcloud":
-                    button = stream_markup2(_, chat_id)
+                    button = stream_markup(_, chat_id)
                     run = await app.send_photo(
                         chat_id=original_chat_id,
                         photo=config.SOUNCLOUD_IMG_URL,
@@ -584,7 +585,7 @@ class Call(PyTgCalls):
                     db[chat_id][0]["markup"] = "tg"
                 else:
                     img = await get_thumb(videoid)
-                    button = stream_markup(_, videoid, chat_id)
+                    button = stream_markup(_, chat_id)
                     run = await app.send_photo(
                         chat_id=original_chat_id,
                         photo=img,
