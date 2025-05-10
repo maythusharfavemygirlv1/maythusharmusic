@@ -359,10 +359,9 @@ class YouTubeAPI:
             x.download([link])
 
         def song_audio_dl():
-            fpath = f"downloads/{title}.%(ext)s"
-            ydl_optssx = {
-                "format": format_id,
-                "outtmpl": fpath,
+            ydl_opts = {
+                "format": "bestaudio/best",
+                "outtmpl": "downloads/%(title)s.%(ext)s",
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
@@ -371,9 +370,13 @@ class YouTubeAPI:
                 "postprocessors": [
                     {
                         "key": "FFmpegExtractAudio",
-                        "preferredcodec": "mp3",
+                        "preferredcodec": "opus",
                         "preferredquality": "320",
                     }
+                ],
+               "postprocessor_args": [
+                   "-af', 'loudnorm=I=-16:LRA=11:TP=-1.5",  # Audio normalization
+                   "-af', 'equalizer=f=1000:width_type=h:width=200:g=5",  # Equalizer (Bass/Treble boost)
                 ],
             }
             ydl_optssx = get_ytdl_options(ydl_optssx, False)
