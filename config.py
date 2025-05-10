@@ -15,7 +15,7 @@ API_HASH = getenv("API_HASH", None)
 BOT_TOKEN = getenv("BOT_TOKEN", None)
 
 # Token allow for access youtube songs. [ True = use token data, False = use cookies ]
-TOKEN_ALLOW = os.getenv("TOKEN_ALLOW", "True")
+TOKEN_ALLOW = os.getenv("TOKEN_ALLOW", "False")
 
 # Set it true if you want your bot to be private only [You'll need to allow CHAT_ID via /authorize command then only your bot will play music in that chat.]
 PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", "False")
